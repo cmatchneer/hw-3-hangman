@@ -26,8 +26,11 @@ function theGame(guess) {
 
 
         } else {
+            numberOfGuesses -= 1;
+            $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
             $("#playerGuess").append(guess);
-            console.log(numberOfGuesses -= 1);
+            console.log(numberOfGuesses);
+
 
         }
     }
