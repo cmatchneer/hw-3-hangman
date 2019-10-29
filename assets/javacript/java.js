@@ -18,7 +18,7 @@ function theGame(guess) {
 
         if (guess === computerGuess.charAt(i)) {
             theLetters[i] = guess;
-            $("#theWord").append(theLetters);
+            $("#theWord").text(theLetters.join(""));
             $("#playerGuess").append(guess);
             // console.log(i)
 
