@@ -30,7 +30,8 @@ $(document).ready(function() {
 
     //reset button
     $("#reset").on("click", function() {
-            // console.log(computerGuess);
+            losses += 1
+            $("#lossTotal").text("Your Total Losses: " + losses);
             $("#endGame").html("Looks like we have quitter over here" + "<br>" + "The word was " + computerGuess + "<br>" +
                 "Hit another letter to try again dont quite this time");
             numberOfGuesses = 15;
