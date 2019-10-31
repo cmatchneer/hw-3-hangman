@@ -5,6 +5,8 @@ $(document).ready(function() {
     var computerGuess = theList[Math.floor(Math.random() * theList.length)];
     var theLetters = [];
     var theWin = computerGuess.length;
+    var wins = 0;
+    var losses = 0;
     var tips = {
         the: "You use this word everyday starts with t",
         jumbo: "Some shrimps are called this",
@@ -81,12 +83,14 @@ $(document).ready(function() {
         }
         //winning the game
         if (theWin === 0) {
+            wins += 1;
             numberOfGuesses = 15;
             computerGuess = theList[Math.floor(Math.random() * theList.length)];
             theWin = computerGuess.length;
             theLetters = [];
             $("#theTip").empty();
             $("#endGame").html("YOU ARE THE CHAMPION OF THE WORLD!!!!!" + "<br>" + "hit another letter to play again");
+            $("#winTotal").text("Your Total Wins: " + wins);
             $("#theWord").empty();
             $("#playerGuess").empty();
             $("#playerGuess").text("Your Guesses: ");
@@ -100,20 +104,19 @@ $(document).ready(function() {
         }
         //losing the game
         if (numberOfGuesses === 0) {
+            losses += 1;
             $("#endGame").html("LOOOOOOOSSSSSSEEEEEERRRRR!!!!!" + "<br>" + "The word you were tring to guess was " + computerGuess + "<br>" + "hit another letter to play again");
             numberOfGuesses = 15;
             computerGuess = theList[Math.floor(Math.random() * theList.length)];
             theWin = computerGuess.length;
             theLetters = [];
+            $("#lossTotal").text("Your Total Losses: " + losses);
             $("#theTip").empty();
             $("#theWord").empty();
             $("#playerGuess").empty();
             $("#playerGuess").text("Your Guesses: ");
             $("#hitOrMiss").empty();
             $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
-            console.log(theWin);
-            console.log(numberOfGuesses);
-            console.log(computerGuess);
             for (var l = 0; l < computerGuess.length; l++) {
                 theLetters[l] = " _ ";
             }
