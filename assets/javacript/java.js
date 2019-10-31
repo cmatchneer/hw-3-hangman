@@ -5,10 +5,12 @@ var theLetters = [];
 var theWin = computerGuess.length;
 console.log(computerGuess);
 console.log(theWin);
+
 for (var j = 0; j < computerGuess.length; j++) {
     theLetters[j] = " _ ";
 }
-$("#theWord").text(theLetters);
+$("#theWord").append(theLetters);
+
 
 
 function theGame(guess) {
@@ -19,16 +21,34 @@ function theGame(guess) {
     for (var i = 0; i < computerGuess.length; i++) {
         if (guess.toLowerCase() === computerGuess.charAt(i)) {
             theLetters[i] = guess;
+            console.log(theLetters[i]);
             theWin -= 1;
             $("#theWord").text(theLetters.join(""));
             $("#hitOrMiss").text("You got a letter only " + theWin + " to go");
 
         }
-        // if (theWin === 0) {
-        //     $("#endgame").text("YOU WIN YAYYYY!!!!! hit another letter to play again");
-        //     console.log(theWin);
-        //     return;
-        // }
+
+    }
+    if (theWin === 0) {
+        numberOfGuesses = 15;
+        $("#endGame").text("YOU ARE THE CHAMPION OF THE WORLD!!!!!");
+        $("#theWord").empty();
+        $("#playerGuess").empty();
+        $("#hitOrMiss").empty();
+        $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
+
+
+
+    }
+    if (numberOfGuesses === 0) {
+        numberOfGuesses = 15;
+        $("#endGame").text("LOOOOOOOSEEEEEERRRRR!!!!!");
+        $("#theWord").empty();
+        $("#playerGuess").empty();
+        $("#hitOrMiss").empty();
+        $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
+
+
     }
 
 }
