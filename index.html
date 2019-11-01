@@ -8,29 +8,42 @@
     <title>Hangman</title>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="assets/javacript/java.js"></script>
+    <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
+
+    <div id="title">
+        <h1>Lets Play Some Hangman</h1>
+        <p>Choose a letter and start playing</p>
+    </div>
+
+
+
+
+
     <div class="hangman">
-        <div id="directions">This is your basic hangman style game. You will have 15 guesses to spell the word otherwise you lose
-        </div>
+
         <div id="theWord"></div>
         <div id="playerGuess">Your Guesses: </div>
         <div id="hitOrMiss"></div>
         <div id="guessesLeft"> Guesses Left:15</div>
         <div id="winTotal">Your Total Wins:</div>
         <div id="lossTotal">Your Total Losses:</div>
-        <div id="theTip"></div>
+        <div id="theTip">Help Desk</div>
         <div id="endGame"></div>
-        <div id="buttons">
-            <button id="reset" type="button" class="btn btn-dark">Quit</button>
-            <button id="helpDesk" type="button" class="btn btn-info">Help Desk</button>
+    </div>
 
-        </div>
+    <div id="buttons">
+        <button id="reset" type="button" class="btn btn-dark">Quit</button>
+        <button id="helpDesk" type="button" class="btn btn-warning">Help Desk</button>
 
     </div>
+
+
+
 
 </body>
 

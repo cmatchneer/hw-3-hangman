@@ -1,0 +1,39 @@
+body {
+    background-color: black;
+}
+
+div {
+    height: 50px;
+    width: 80%;
+    text-align: center;
+    margin: 10px auto;
+    background-color: darkcyan;
+    border: 1px solid goldenrod;
+    padding: 3px;
+    color: blanchedalmond;
+}
+
+.btn {
+    margin-left: 10px;
+    border-color: goldenrod !important;
+    margin-top: 1.5px;
+}
+
+.hangman {
+    height: 600px;
+    background-color: darkred;
+}
+
+#title {
+    padding-top: 0;
+    padding-bottom: 10px;
+    height: 80px;
+}
+
+#theTip {
+    height: 90px;
+}
+
+#endGame {
+    height: 90px;
+}

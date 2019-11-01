@@ -5,7 +5,7 @@ $(document).ready(function() {
     var numberOfGuesses = 15;
     var computerGuess = theList[Math.floor(Math.random() * theList.length)];
     var theLetters = [];
-    var theWin = computerGuess.length;
+
     var wins = 0;
     var losses = 0;
     var gameOver = false;
@@ -44,6 +44,7 @@ $(document).ready(function() {
             $("#theWord").empty();
             $("#playerGuess").empty();
             $("#playerGuess").text("Your Guesses: ");
+            $("#theTip").text("Help Desk");
             $("#hitOrMiss").empty();
             $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
 
@@ -64,35 +65,25 @@ $(document).ready(function() {
         })
         //the game
     function theGame(guess) {
-
-
-
         //all the stuff that should happen hit or miss
-
-
         numberOfGuesses -= 1;
         $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
         $("#playerGuess").append(" " + guess + " ");
         $("#hitOrMiss").text("Uh oh " + guess + " isnt in the word keep going");
         $("#endGame").empty();
-
-
         //the loop and if statment for gussing a letter correctly
         for (var i = 0; i < computerGuess.length; i++) {
-            if (guess.toLowerCase() === computerGuess.charAt(i) && theLetters.indexOf(guess) === -1) {
+            if (guess.toLowerCase() === computerGuess.charAt(i)) {
                 theLetters[i] = guess;
-
-                theWin -= 1;
                 $("#theWord").text(theLetters.join(""));
-                $("#hitOrMiss").text("You got a letter only " + theWin + " to go");
+                $("#hitOrMiss").text("You guessed a correct letter yayy keep going");
 
             }
-
-
         }
 
+
         //winning the game
-        if (theWin === 0) {
+        if (theLetters.join("") === computerGuess) {
             gameOver = true;
             wins += 1;
             $("#endGame").html("YOU ARE THE CHAMPION OF THE WORLD!!!!!" + "<br>" + "Press the win button to play again");
@@ -115,19 +106,17 @@ $(document).ready(function() {
                 $("#theWord").empty();
                 $("#playerGuess").empty();
                 $("#playerGuess").text("Your Guesses: ");
+                $("#theTip").text("Help Desk");
                 $("#hitOrMiss").empty();
                 $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
                 for (var k = 0; k < computerGuess.length; k++) {
                     theLetters[k] = " _ ";
                 }
                 $("#theWord").text(theLetters.join(""));
-
-
-
             });
         }
         //losing the game
-        if (numberOfGuesses === 0) {
+        if (numberOfGuesses === 0 && theLetters.join("") !== computerGuess) {
             gameOver = true;
             losses += 1;
             $("#lossTotal").text("Your Total Losses: " + losses);
@@ -151,6 +140,7 @@ $(document).ready(function() {
                 $("#theWord").empty();
                 $("#playerGuess").empty();
                 $("#playerGuess").text("Your Guesses: ");
+                $("#theTip").text("Help Desk");
                 $("#hitOrMiss").empty();
                 $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
                 for (var l = 0; l < computerGuess.length; l++) {
@@ -160,6 +150,7 @@ $(document).ready(function() {
             });
 
         }
+
     }
     //starting the game
     document.onkeypress = function(event) {
