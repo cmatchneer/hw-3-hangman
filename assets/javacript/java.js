@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     //base vars to build the game
     var theList = ["the", "jumbo", "javascript", "html", "css", "gravity", "codeing", "bugs", "debugging"];
     var numberOfGuesses = 15;
@@ -7,6 +8,7 @@ $(document).ready(function() {
     var theWin = computerGuess.length;
     var wins = 0;
     var losses = 0;
+    var gameOver = false;
     var tips = {
         the: "You use this word everyday starts with t",
         jumbo: "Some shrimps are called this",
@@ -33,7 +35,7 @@ $(document).ready(function() {
             losses += 1
             $("#lossTotal").text("Your Total Losses: " + losses);
             $("#endGame").html("Looks like we have quitter over here" + "<br>" + "The word was " + computerGuess + "<br>" +
-                "Hit another letter to try again dont quite this time");
+                "Hit another letter to try again dont quit this time");
             numberOfGuesses = 15;
             computerGuess = theList[Math.floor(Math.random() * theList.length)];
             theWin = computerGuess.length;
@@ -52,18 +54,21 @@ $(document).ready(function() {
         })
         //tip button
     $("#helpDesk").on("click", function() {
-        var tipsAccess = computerGuess;
-        $("#theTip").html("Welcome to the help desk here is your tip: " + tips[tipsAccess] + "<br>" +
-            "I hope this helps good luck");
-        $("#endGame").empty();
+            var tipsAccess = computerGuess;
+            $("#theTip").html("Welcome to the help desk here is your tip: " + tips[tipsAccess] + "<br>" +
+                "I hope this helps good luck");
+            $("#endGame").empty();
 
 
 
-    })
-
+        })
+        //the game
     function theGame(guess) {
 
+
+
         //all the stuff that should happen hit or miss
+
         numberOfGuesses -= 1;
         $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
         $("#playerGuess").append(" " + guess + " ");
@@ -73,7 +78,7 @@ $(document).ready(function() {
 
         //the loop and if statment for gussing a letter correctly
         for (var i = 0; i < computerGuess.length; i++) {
-            if (guess.toLowerCase() === computerGuess.charAt(i)) {
+            if (guess.toLowerCase() === computerGuess.charAt(i) && theLetters.indexOf(guess) === -1) {
                 theLetters[i] = guess;
 
                 theWin -= 1;
@@ -85,16 +90,18 @@ $(document).ready(function() {
         }
         //winning the game
         if (theWin === 0) {
+            gameOver = true;
             wins += 1;
             $("#endGame").html("YOU ARE THE CHAMPION OF THE WORLD!!!!!" + "<br>" + "Press the win button to play again");
             $("#winTotal").text("Your Total Wins: " + wins);
 
-            //creating win button to reset the game
+            //creating win button 
             var winBtn = $("<button>");
             winBtn.addClass("winButton btn btn-primary")
             winBtn.text("You Win");
             $("#buttons").append(winBtn);
             $(".winButton").on("click", function() {
+                gameOver = false;
                 $(".winButton").remove();
                 numberOfGuesses = 15;
                 computerGuess = theList[Math.floor(Math.random() * theList.length)];
@@ -118,16 +125,19 @@ $(document).ready(function() {
         }
         //losing the game
         if (numberOfGuesses === 0) {
+            gameOver = true;
             losses += 1;
             $("#lossTotal").text("Your Total Losses: " + losses);
             $("#endGame").html("LOOOOOOOSSSSSSEEEEEERRRRR!!!!!" + "<br>" + "The word you were tring to guess was " + computerGuess + "<br>" +
                 " Press the lose button to play again");
+
             //lose game button creation
             var loseBtn = $("<button>");
             loseBtn.addClass("loseButton btn btn-danger");
             loseBtn.text("You Lose");
             $("#buttons").append(loseBtn);
             $(".loseButton").on("click", function() {
+                gameOver = false;
                 $(".loseButton").remove();
                 numberOfGuesses = 15;
                 computerGuess = theList[Math.floor(Math.random() * theList.length)];
@@ -144,12 +154,20 @@ $(document).ready(function() {
                 }
                 $("#theWord").text(theLetters.join(""));
             });
+
         }
     }
     //starting the game
     document.onkeypress = function(event) {
         var userGuess = event.key;
-        theGame(userGuess);
+        //stops game win or lose
+        if (gameOver === true) {
+            return;
+        }
+        //makes sure only letters can be used to play the game
+        if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122)) {
+            theGame(userGuess);
+        }
     }
 
 });
