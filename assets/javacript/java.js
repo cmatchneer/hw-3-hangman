@@ -69,6 +69,7 @@ $(document).ready(function() {
 
         //all the stuff that should happen hit or miss
 
+
         numberOfGuesses -= 1;
         $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
         $("#playerGuess").append(" " + guess + " ");
@@ -87,7 +88,9 @@ $(document).ready(function() {
 
             }
 
+
         }
+
         //winning the game
         if (theWin === 0) {
             gameOver = true;
@@ -143,6 +146,7 @@ $(document).ready(function() {
                 computerGuess = theList[Math.floor(Math.random() * theList.length)];
                 theWin = computerGuess.length;
                 theLetters = [];
+                $("#endGame").empty();
                 $("#theTip").empty();
                 $("#theWord").empty();
                 $("#playerGuess").empty();
