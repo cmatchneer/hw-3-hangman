@@ -5,10 +5,10 @@ $(document).ready(function() {
     var numberOfGuesses = 15;
     var computerGuess = theList[Math.floor(Math.random() * theList.length)];
     var theLetters = [];
-
     var wins = 0;
     var losses = 0;
     var gameOver = false;
+    var sound = document.createElement('audio');
     var tips = {
         the: "You use this word everyday starts with t",
         jumbo: "Some shrimps are called this",
@@ -19,6 +19,7 @@ $(document).ready(function() {
         codeing: "What people who create webpages and app and such do",
         bugs: "The one thing coders and all homeowners hate to see ",
         debugging: "What coders spend 90% of their lives doing"
+
     };
     console.log(computerGuess);
 
@@ -38,7 +39,6 @@ $(document).ready(function() {
                 "Hit another letter to try again dont quit this time");
             numberOfGuesses = 15;
             computerGuess = theList[Math.floor(Math.random() * theList.length)];
-            theWin = computerGuess.length;
             theLetters = []
             $("#theTip").empty();
             $("#theWord").empty();
@@ -47,6 +47,8 @@ $(document).ready(function() {
             $("#theTip").text("Help Desk");
             $("#hitOrMiss").empty();
             $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
+            sound.setAttribute("src", "assets/audio/quitter.m4a");
+            sound.play();
 
             for (var r = 0; r < computerGuess.length; r++) {
                 theLetters[r] = " _ ";
@@ -59,6 +61,8 @@ $(document).ready(function() {
             $("#theTip").html("Welcome to the help desk here is your tip: " + tips[tipsAccess] + "<br>" +
                 "I hope this helps good luck");
             $("#endGame").empty();
+            sound.setAttribute("src", "assets/audio/help.m4a");
+            sound.play();
 
 
 
@@ -71,12 +75,16 @@ $(document).ready(function() {
         $("#playerGuess").append(" " + guess + " ");
         $("#hitOrMiss").text("Uh oh " + guess + " isnt in the word keep going");
         $("#endGame").empty();
+        sound.setAttribute("src", "assets/audio/miss.m4a");
+        sound.play();
         //the loop and if statment for gussing a letter correctly
         for (var i = 0; i < computerGuess.length; i++) {
             if (guess.toLowerCase() === computerGuess.charAt(i)) {
                 theLetters[i] = guess;
                 $("#theWord").text(theLetters.join(""));
                 $("#hitOrMiss").text("You guessed a correct letter yayy keep going");
+                sound.setAttribute("src", "assets/audio/hit.m4a");
+                sound.play();
 
             }
         }
@@ -88,6 +96,8 @@ $(document).ready(function() {
             wins += 1;
             $("#endGame").html("YOU ARE THE CHAMPION OF THE WORLD!!!!!" + "<br>" + "Press the win button to play again");
             $("#winTotal").text("Your Total Wins: " + wins);
+            sound.setAttribute("src", "assets/audio/champion.m4a");
+            sound.play();
 
             //creating win button 
             var winBtn = $("<button>");
@@ -99,7 +109,6 @@ $(document).ready(function() {
                 $(".winButton").remove();
                 numberOfGuesses = 15;
                 computerGuess = theList[Math.floor(Math.random() * theList.length)];
-                theWin = computerGuess.length;
                 theLetters = [];
                 $("#theTip").empty();
                 $("#endGame").empty();
@@ -122,6 +131,8 @@ $(document).ready(function() {
             $("#lossTotal").text("Your Total Losses: " + losses);
             $("#endGame").html("LOOOOOOOSSSSSSEEEEEERRRRR!!!!!" + "<br>" + "The word you were tring to guess was " + computerGuess + "<br>" +
                 " Press the lose button to play again");
+            sound.setAttribute("src", "assets/audio/loser.m4a");
+            sound.play();
 
             //lose game button creation
             var loseBtn = $("<button>");
@@ -133,7 +144,6 @@ $(document).ready(function() {
                 $(".loseButton").remove();
                 numberOfGuesses = 15;
                 computerGuess = theList[Math.floor(Math.random() * theList.length)];
-                theWin = computerGuess.length;
                 theLetters = [];
                 $("#endGame").empty();
                 $("#theTip").empty();
