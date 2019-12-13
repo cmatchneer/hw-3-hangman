@@ -16,7 +16,7 @@ $(document).ready(function() {
         html: "Basics of makeing a website",
         css: "Makes webpages look goooooooood",
         gravity: "What keeps us from being able to fly",
-        codeing: "What people who create webpages and app and such do",
+        codeing: "Another name for programming",
         bugs: "The one thing coders and all homeowners hate to see ",
         debugging: "What coders spend 90% of their lives doing"
 
@@ -105,23 +105,8 @@ $(document).ready(function() {
             winBtn.text("You Win");
             $("#buttons").append(winBtn);
             $(".winButton").on("click", function() {
-                gameOver = false;
-                $(".winButton").remove();
-                numberOfGuesses = 15;
-                computerGuess = theList[Math.floor(Math.random() * theList.length)];
-                theLetters = [];
-                $("#theTip").empty();
-                $("#endGame").empty();
-                $("#theWord").empty();
-                $("#playerGuess").empty();
-                $("#playerGuess").text("Your Guesses: ");
-                $("#theTip").text("Help Desk");
-                $("#hitOrMiss").empty();
-                $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
-                for (var k = 0; k < computerGuess.length; k++) {
-                    theLetters[k] = " _ ";
-                }
-                $("#theWord").text(theLetters.join(""));
+                $(this).remove();
+                reset();
             });
         }
         //losing the game
@@ -140,28 +125,34 @@ $(document).ready(function() {
             loseBtn.text("You Lose");
             $("#buttons").append(loseBtn);
             $(".loseButton").on("click", function() {
-                gameOver = false;
-                $(".loseButton").remove();
-                numberOfGuesses = 15;
-                computerGuess = theList[Math.floor(Math.random() * theList.length)];
-                theLetters = [];
-                $("#endGame").empty();
-                $("#theTip").empty();
-                $("#theWord").empty();
-                $("#playerGuess").empty();
-                $("#playerGuess").text("Your Guesses: ");
-                $("#theTip").text("Help Desk");
-                $("#hitOrMiss").empty();
-                $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
-                for (var l = 0; l < computerGuess.length; l++) {
-                    theLetters[l] = " _ ";
-                }
-                $("#theWord").text(theLetters.join(""));
+                $(this).remove();
+                reset();
             });
 
         }
 
     }
+
+    function reset() {
+
+        gameOver = false;
+        numberOfGuesses = 15;
+        computerGuess = theList[Math.floor(Math.random() * theList.length)];
+        theLetters = [];
+        $("#theTip").empty();
+        $("#endGame").empty();
+        $("#theWord").empty();
+        $("#playerGuess").empty();
+        $("#playerGuess").text("Your Guesses: ");
+        $("#theTip").text("Help Desk");
+        $("#hitOrMiss").empty();
+        $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
+        for (var k = 0; k < computerGuess.length; k++) {
+            theLetters[k] = " _ ";
+        }
+        $("#theWord").text(theLetters.join(""));
+    }
+
     //starting the game
     document.onkeypress = function(event) {
         var userGuess = event.key;
