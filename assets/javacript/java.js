@@ -37,23 +37,7 @@ $(document).ready(function() {
             $("#lossTotal").text("Your Total Losses: " + losses);
             $("#endGame").html("Looks like we have quitter over here" + "<br>" + "The word was " + computerGuess + "<br>" +
                 "Hit another letter to try again dont quit this time");
-            numberOfGuesses = 15;
-            computerGuess = theList[Math.floor(Math.random() * theList.length)];
-            theLetters = []
-            $("#theTip").empty();
-            $("#theWord").empty();
-            $("#playerGuess").empty();
-            $("#playerGuess").text("Your Guesses: ");
-            $("#theTip").text("Help Desk");
-            $("#hitOrMiss").empty();
-            $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
-            sound.setAttribute("src", "assets/audio/quitter.m4a");
-            sound.play();
-
-            for (var r = 0; r < computerGuess.length; r++) {
-                theLetters[r] = " _ ";
-            }
-            $("#theWord").text(theLetters.join(""));
+            reset();
         })
         //tip button
     $("#helpDesk").on("click", function() {
