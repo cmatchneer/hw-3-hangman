@@ -11,6 +11,7 @@ $(document).ready(function() {
     ];
     let index = Math.floor(Math.random() * theList.length);
     let numberOfGuesses;
+    let resetGuesses;
     let computerGuess = theList[index].word;
     let theTip = theList[index].tip;
     let theLetters = [];
@@ -19,30 +20,51 @@ $(document).ready(function() {
     let gameOver = false;
     let gameStart = false;
     const sound = document.createElement('audio');
-
-    console.log(computerGuess);
+    // hardness buttons
     var easyBtn = $("<button>");
-    easyBtn.addClass("easyButton btn btn-danger");
+    easyBtn.addClass("diffcultyBtn btn btn-danger");
     easyBtn.text("easy mode");
+    easyBtn.attr("id", "easy")
     $("#theWord").append(easyBtn);
-    $(".easyButton").on("click", function() {
+    var medBtn = $("<button>");
+    medBtn.addClass("diffcultyBtn btn btn-danger");
+    medBtn.text("medium mode");
+    medBtn.attr("id", "medium")
+    $("#theWord").append(medBtn);
+    var hardBtn = $("<button>");
+    hardBtn.addClass("diffcultyBtn btn btn-danger");
+    hardBtn.text("hard mode");
+    hardBtn.attr("id", "hard")
+    $("#theWord").append(hardBtn);
+    $(".diffcultyBtn").on("click", function() {
+        console.log(this.id);
+        switch (this.id) {
+            case "easy":
+                numberOfGuesses = 15;
+                break;
+            case "medium":
+                numberOfGuesses = 10;
+                break;
+            case "hard":
+                numberOfGuesses = 5;
+                break;
+        }
+        resetGuesses = numberOfGuesses
         $("#theWord").empty();
-        numberOfGuesses = 15;
+        $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
         gameStart = true;
         setUp();
     });
 
     const setUp = () => {
-        // making the array the same length as the guess and blank so it can be filled in later
-        for (var j = 0; j < computerGuess.length; j++) {
-            theLetters[j] = " _ ";
+            // making the array the same length as the guess and blank so it can be filled in later
+            for (var j = 0; j < computerGuess.length; j++) {
+                theLetters[j] = " _ ";
+            }
+            //puts the empty array on the screen
+            $("#theWord").text(theLetters.join(""));
         }
-
-        //puts the empty array on the screen
-        $("#theWord").text(theLetters.join(""));
-    }
-
-    //reset button
+        //reset button
     $("#reset").on("click", function() {
             losses += 1
             $("#lossTotal").text("Your Total Losses: " + losses);
@@ -52,15 +74,11 @@ $(document).ready(function() {
         })
         //tip button
     $("#helpDesk").on("click", function() {
-
             $("#theTip").html("Welcome to the help desk here is your tip: " + theTip + "<br>" +
                 "I hope this helps good luck");
             $("#endGame").empty();
             sound.setAttribute("src", "assets/audio/help.m4a");
             sound.play();
-
-
-
         })
         //the game
     const theGame = (guess) => {
@@ -84,8 +102,6 @@ $(document).ready(function() {
 
                 }
             }
-
-
             //winning the game
             if (theLetters.join("") === computerGuess) {
                 gameOver = true;
@@ -94,7 +110,6 @@ $(document).ready(function() {
                 $("#winTotal").text("Your Total Wins: " + wins);
                 sound.setAttribute("src", "assets/audio/champion.m4a");
                 sound.play();
-
                 //creating win button 
                 var winBtn = $("<button>");
                 winBtn.addClass("winButton btn btn-primary")
@@ -114,7 +129,6 @@ $(document).ready(function() {
                     " Press the lose button to play again");
                 sound.setAttribute("src", "assets/audio/loser.m4a");
                 sound.play();
-
                 //lose game button creation
                 var loseBtn = $("<button>");
                 loseBtn.addClass("loseButton btn btn-danger");
@@ -124,34 +138,30 @@ $(document).ready(function() {
                     $(this).remove();
                     reset();
                 });
-
             }
         }
-
     }
-
     const reset = () => {
-        index = Math.floor(Math.random() * theList.length);
-        gameOver = false;
-        numberOfGuesses = 15;
-        computerGuess = theList[index].word;
-        theTip = theList[index].tip;
-        theLetters = [];
-        $("#theTip").empty();
-        $("#endGame").empty();
-        $("#theWord").empty();
-        $("#playerGuess").empty();
-        $("#playerGuess").text("Your Guesses: ");
-        $("#theTip").text("Help Desk");
-        $("#hitOrMiss").empty();
-        $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
-        for (var k = 0; k < computerGuess.length; k++) {
-            theLetters[k] = " _ ";
+            index = Math.floor(Math.random() * theList.length);
+            gameOver = false;
+            numberOfGuesses = resetGuesses;
+            computerGuess = theList[index].word;
+            theTip = theList[index].tip;
+            theLetters = [];
+            $("#theTip").empty();
+            $("#endGame").empty();
+            $("#theWord").empty();
+            $("#playerGuess").empty();
+            $("#playerGuess").text("Your Guesses: ");
+            $("#theTip").text("Help Desk");
+            $("#hitOrMiss").empty();
+            $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
+            for (var k = 0; k < computerGuess.length; k++) {
+                theLetters[k] = " _ ";
+            }
+            $("#theWord").text(theLetters.join(""));
         }
-        $("#theWord").text(theLetters.join(""));
-    }
-
-    //starting the game
+        //starting the game
     document.onkeypress = function(event) {
         var userGuess = event.key;
         //stops game win or lose
@@ -163,5 +173,4 @@ $(document).ready(function() {
             theGame(userGuess);
         }
     }
-
 });
