@@ -51,7 +51,7 @@ $(document).ready(function() {
 
         })
         //the game
-    function theGame(guess) {
+    const theGame=(guess) =>{
         //all the stuff that should happen hit or miss
         numberOfGuesses -= 1;
         $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
@@ -116,7 +116,7 @@ $(document).ready(function() {
 
     }
 
-    function reset() {
+    const reset=()=> {
         index= Math.floor(Math.random() * theList.length);
         gameOver = false;
         numberOfGuesses = 15;
