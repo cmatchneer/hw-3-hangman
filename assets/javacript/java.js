@@ -1,27 +1,26 @@
 $(document).ready(function() {
-
-    //base vars to build the game
-    var theList = ["the", "jumbo", "javascript", "html", "css", "gravity", "codeing", "bugs", "debugging"];
-    var numberOfGuesses = 15;
-    var computerGuess = theList[Math.floor(Math.random() * theList.length)];
-    var theLetters = [];
-    var wins = 0;
-    var losses = 0;
-    var gameOver = false;
-    var sound = document.createElement('audio');
-    var tips = {
-        the: "You use this word everyday starts with t",
-        jumbo: "Some shrimps are called this",
-        javascript: "Used to make a web page dyanmic",
-        html: "Basics of makeing a website",
-        css: "Makes webpages look goooooooood",
-        gravity: "What keeps us from being able to fly",
-        codeing: "Another name for programming",
-        bugs: "The one thing coders and all homeowners hate to see ",
-        debugging: "What coders spend 90% of their lives doing"
-
-    };
+    const theList =[{word:"the",tip:"You use this word everyday starts with t"},
+    {word:"jumbo",tip:"Some shrimps are called this"},
+    {word:"javascript",tip: "Used to make a web page dyanmic"},
+    {word:"html",tip:"Basics of makeing a website"},
+    {word:"css",tip:"Makes webpages look goooooooood"},
+    {word:"gravity",tip:"What keeps us from being able to fly"},
+    {word:"codeing",tip:"Another name for programming"},
+    {word:"bugs", tip:"The one thing coders and all homeowners hate to see"},
+    {word:"debugging",tip:"What coders spend 90% of their lives doing"}];
+    let index= Math.floor(Math.random() * theList.length);
+    let numberOfGuesses = 15;
+    let computerGuess = theList[index].word;
+    let theTip=theList[index].tip;
+    let theLetters = [];
+    let wins = 0;
+    let losses = 0;
+    let gameOver = false;
+    const sound = document.createElement('audio');
+  
     console.log(computerGuess);
+    
+
 
     // making the array the same length as the guess and blank so it can be filled in later
     for (var j = 0; j < computerGuess.length; j++) {
@@ -41,8 +40,8 @@ $(document).ready(function() {
         })
         //tip button
     $("#helpDesk").on("click", function() {
-            var tipsAccess = computerGuess;
-            $("#theTip").html("Welcome to the help desk here is your tip: " + tips[tipsAccess] + "<br>" +
+            
+            $("#theTip").html("Welcome to the help desk here is your tip: " + theTip + "<br>" +
                 "I hope this helps good luck");
             $("#endGame").empty();
             sound.setAttribute("src", "assets/audio/help.m4a");
@@ -52,7 +51,7 @@ $(document).ready(function() {
 
         })
         //the game
-    function theGame(guess) {
+    const theGame=(guess) =>{
         //all the stuff that should happen hit or miss
         numberOfGuesses -= 1;
         $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
@@ -117,11 +116,12 @@ $(document).ready(function() {
 
     }
 
-    function reset() {
-
+    const reset=()=> {
+        index= Math.floor(Math.random() * theList.length);
         gameOver = false;
         numberOfGuesses = 15;
-        computerGuess = theList[Math.floor(Math.random() * theList.length)];
+        computerGuess = theList[index].word;
+        theTip=theList[index].tip;
         theLetters = [];
         $("#theTip").empty();
         $("#endGame").empty();
