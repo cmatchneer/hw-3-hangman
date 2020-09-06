@@ -19,6 +19,7 @@ $(document).ready(function() {
     let losses = 0;
     let gameOver = false;
     let gameStart = false;
+    let userGuess = [];
     const sound = document.createElement('audio');
     // hardness buttons
     var easyBtn = $("<button>");
@@ -83,6 +84,14 @@ $(document).ready(function() {
         //the game
     const theGame = (guess) => {
         if (gameStart) {
+            //if user double guesses the same letter
+            for (let k = 0; k < userGuess.length; k++) {
+                if (guess.toLowerCase() == userGuess[k].toLowerCase()) {
+                    alert("you have aready guessed that letter try another");
+                    return;
+                }
+            }
+            userGuess.push(guess.toLowerCase());
             //all the stuff that should happen hit or miss
             numberOfGuesses -= 1;
             $("#guessesLeft").text("Guesses Left: " + numberOfGuesses);
